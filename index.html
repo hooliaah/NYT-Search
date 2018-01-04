@@ -15,23 +15,24 @@
       <form>
         <div class="form-group">
           <label>Seach Term</label>
-          <input type="text" name="" class="form-control" id="userSearch" placeholder="What do you want to search?">
+          <input type="text" class="form-control" id="userSearch" placeholder="What do you want to search?">
         </div>
         <div class="form-group">
           <label>Number of Records to Retrieve</label>
-          <input type="text" name="" class="form-control" id="numberRecords">
+          <input type="text" class="form-control" id="numberRecords">
         </div>
         <div class="form-group">
           <label>Start Year (Optional)</label>
-          <input type="text" name="" class="form-control" id="startYear">
+          <input type="text" class="form-control" id="startYear">
         </div>
         <div class="form-group">
           <label>End Year (Optional)</label>
-          <input type="text" name="" class="form-control" id="endYear">
+          <input type="text" class="form-control" id="endYear">
         </div>
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button id="run" type="button" class="btn btn-primary">Search</button>
         <button type="button" class="btn btn-danger">Clear Results</button>
-    </form>
+      </form>
+    </div>
   </div>
 
   <div id="results" class="card" style="margin-top: 20px">
@@ -46,6 +47,29 @@
 
     </div>
   </div>
+  <!-- back end -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  $('#run').on('click', function(){
+    //var apiKey = "5a3fcbf68ac1437080c5081b94c5726d";
+    var user = $("#userSearch").val();
+    //var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=b9a8de65f0ea4c10a612fca1e6a55d51&q=" + userSearch;
+    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+    queryURL += '?' + $.param({
+      'api-key': "b9a8de65f0ea4c10a612fca1e6a55d51",
+      'q': user});
 
-</body>
-</html>
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).done(function(response){
+        console.log(response);
+      });
+    console.log(user)
+
+
+    })
+
+    </script>
+    </body>
+    </html>
